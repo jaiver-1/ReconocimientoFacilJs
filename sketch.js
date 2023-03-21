@@ -4,26 +4,26 @@ let trained = false
 const imgSize = 64
 
 function setup() {
-  createCanvas(900, 520)
+  createCanvas(900, 520) // se controla el lienzo de canvas para lo cual se debe manipular funcion draw y initVideo
 
   initVideo()
   initFaceDetector()
   initFaceClassifier()
-  drawMenu()
+  drawMenu() // para menu se puede Comentar
 }
 
 function draw() {
   background(0);
-  image(video, 0, 10, 640, 520)
-  drawBoxes()
+  image(video, 0, 10, 640, 520) // control de tamaño video y agregar el mismo en la funcion initVideo
+  drawBoxes() //para mostarr el recuadro
 }
 
 function drawBoxes() {
   for (let i=0; i < boxes.length; i++) {
     const box = boxes[i]
     noFill()
-    stroke(161, 95, 251)
-    strokeWeight(4)
+    stroke(161, 95, 251) // color del recuadro en formato rgb
+    strokeWeight(4) // grosor de cuadro
     rect(box.x, box.y, box.width, box.height)
 
     if (box.label) {
@@ -167,3 +167,62 @@ function drawMenu() {
   saveDataBtn.position(650, 180)
   saveDataBtn.mousePressed(() => classifier.saveData('model'))
 }
+
+
+
+
+
+//#region Manejo de Fotografia en otro js
+
+/*
+let Validorrecuadro = true;
+function draw() {
+    //background(0);
+    image(video, 0, 10, 470, 400);
+    recuadro();
+};
+
+function recuadro() {
+    
+    if (Validorrecuadro) {
+        drawBoxes();
+    }
+    Validorrecuadro = true
+};
+
+
+let captureButton = document.getElementById('CapturarFoto');
+captureButton.addEventListener('click', function () {
+
+    if (boxes.length === 1) {
+
+        Validorrecuadro = false;
+        draw();
+
+        //Obtener mi Fotografia
+        let CanvaImg = document.getElementById('defaultCanvas0');
+        let imagen = CanvaImg.toDataURL("image/png");
+        let ImagenFormateada = imagen.replace(/^data:image\/(png|jpg);base64,/, "");
+
+        //pintar
+        let image = new Image();
+        image.src = imagen;
+
+        let canvaMarcar = document.getElementById('canvaMarca');
+        let contextoMarca = canvaMarcar.getContext('2d');
+        for (let i = 0; i < boxes.length; i++) {
+            const Puntos = boxes[i]
+            image.onload = function () {
+                //drawImage(image, sx-desde donde with, sy-desde donde heig, sWidth-ancjo imagen, sHeight-altoimage, dx-dese donde empieza a dibujar, dy-dese donde empieza a dibujar, dWidth-longitud de imagen, dHeight-la altura de la imagen);
+                contextoMarca.drawImage(image, Puntos.x + 50, Puntos.y - 30, 430, 800, 0, 0, 300, 400);
+            }
+        }
+    }
+    else {
+        console.error("No se Encuentra Rostro");
+    }
+
+});
+
+*/
+//endregion
